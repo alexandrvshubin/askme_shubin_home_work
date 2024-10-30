@@ -1,4 +1,4 @@
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render ,redirect
 from  django.views.generic.base import View
 from . import models
@@ -9,17 +9,13 @@ from .form import CommentsForm
 
 class QuestionView(View):
     def get(self,request):
-        page_num =int(request.GET.get('page',1))
-        paginator = Paginator(models.Question.objects.all(),per_page=5)
-        page = paginator.page(page_num)
+        page = paginate(models.Question.objects.all(), request, per_page=5)
         #questions =models.Question.objects.all()
         return  render(request, 'blog/index.html',{'question_list':page.object_list,'page_obj':page})
 
 class TagView(View):
     def get(self,request):
-        page_num =int(request.GET.get('page',1))
-        paginator = Paginator(models.Question.objects.all(),per_page=5)
-        page = paginator.page(page_num)
+        page = paginate(models.Question.objects.all(), request, per_page=5)
         #questions =models.Question.objects.all()
         return  render(request, 'blog/tag.html',{'question_list':page.object_list,'page_obj':page})
 
@@ -31,10 +27,7 @@ class QuestionDetails(View):
 
 class HotQuestionView(View):
     def get(self,request):
-        page_num = int(request.GET.get('page', 1))
-        paginator = Paginator(list(reversed(models.Question.objects.all())), per_page=5)
-        page = paginator.page(page_num)
-        #questions =models.Question.objects.all()
+        page = paginate(list(reversed(models.Question.objects.all())), request, per_page=5)
         return  render(request, 'blog/hot.html',{'question_list':page.object_list,'page_obj':page})
 
 class SettingsView(View):
@@ -62,6 +55,17 @@ class AddComments(View):
             form.post_id =pk
             form.save()
         return redirect(f'/question/{pk}')
+
+def paginate(objects_list, request, per_page=5):
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(objects_list, per_page)
+    try:
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+    return page
 
 def get_client_ip(request):
     x_forvarded_for =request.META.get("HTTP_X_FORVARDED_FOR")
