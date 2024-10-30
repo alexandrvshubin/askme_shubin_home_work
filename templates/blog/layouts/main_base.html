@@ -1,0 +1,84 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .popular-tags span {
+            display: inline-block;
+            margin-right: 8px;
+            color: #000000;
+            font-weight: bold;
+        }
+        .pagination {
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="d-flex w-100 justify-content-between">
+            <a class="navbar-brand" href="#">AskPupkin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="d-flex" role="search">
+                <input class="form-control me-4" type="search" placeholder="Search" aria-label="Search">
+                <a class="btn btn-outline-success" href="/ask/">ASK</a>
+            </form>
+            <div class="d-flex gap-1">
+                <img src="asda.jpg" alt="Avatar" class="img-thumbnail">
+                <div>
+                    <div>
+                        dr pepper
+                    </div>
+                    <a href="/settings/">settings</a>
+                    <a href="#">log out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<main class="container mt-2">
+    <div class="row">
+        <!-- Основной контент -->
+        <div class="col-md-9">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <!-- Колонка с тэгами и участниками -->
+        <div class="col-md-3">
+            <h5>Popular Tags</h5>
+            <div class="popular-tags">
+                <span>perl</span>
+                <span class="text-danger">python</span>
+                <span>TechnoPark</span>
+                <span class="text-danger">MySQL</span>
+                <span class="text-success">django</span>
+                <span>MailRu</span>
+                <span>Voloshin</span>
+                <span>Firefox</span>
+            </div>
+            <hr>
+            <h5>Best Members</h5>
+            <ul class="list-unstyled">
+                <li><a href="#">Mr. Freeman</a></li>
+                <li><a href="#">Dr. House</a></li>
+                <li><a href="#">Bender</a></li>
+                <li><a href="#">Queen Victoria</a></li>
+                <li><a href="#">V Pupkin</a></li>
+            </ul>
+        </div>
+    </div>
+</main>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

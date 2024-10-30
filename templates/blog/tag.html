@@ -1,0 +1,21 @@
+
+
+
+{% extends 'blog/layouts/main_base.html' %}
+
+{% block content %}
+        <div class="col-9">
+            <div class="d-flex gap-3 align-items-center">
+                <h1>Tag: Another link</h1>
+                <a href="/">New questions</a>
+
+            </div>
+            <p></p>
+            {% for question in question_list%}
+            {% include 'blog/layouts/question.html' %}
+            {% endfor %}
+
+            {% include 'blog/layouts/pagination.html' %}
+
+        </div>
+{% endblock %}
