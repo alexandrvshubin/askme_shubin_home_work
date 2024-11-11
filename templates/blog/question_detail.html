@@ -1,90 +1,84 @@
-
 {% extends 'blog/layouts/main_base.html' %}
 
 {% block content %}
 <div class="col-9">
 
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-2">
-                        <div class="border mb-3" style="height: 100px">
-                            <img src="{{question.img.url}}" class="img-fluid rounded-start" alt="Avatar">
-                        </div>
-                        <input class="form-control" type="number" value="5" placeholder="Default input"
-                               aria-label="default input example">
-                    </div>
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            <h5><a href="#" class="card-link">{{ question.title }}</a></h5>
-                            <p class="card-text">{{ question.text }}</p>
-                            <div class="d-flex gap-5">
-                                <a href="#" class="card-link">Answer (3)</a>
-                                <div>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-2">
+                <div class="border mb-3" style="height: 100px">
+                    <img src="{{question.img.url}}" class="img-fluid rounded-start" alt="Avatar">
+                </div>
+                {% include 'blog/layouts/like_panel.html' %}
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5><a href="#" class="card-link">{{ question.title }}</a></h5>
+                    <p class="card-text">{{ question.text }}</p>
+                    <div class="d-flex gap-5">
+                        <a href="#" class="card-link">Answer (3)</a>
+                        <div>
 
-                                    Tags:
-                                    <a href="#" class="card-link">Another link</a>
-                                    <a href="#" class="card-link">Another link</a>
-                                    <a href="#" class="card-link">Another link</a>
-                                    <a href="#" class="card-link">Another link</a>
-                                </div>
-                            </div>
+                            Tags:
+                            {% for tag in question.tags.all %}
+                            <a href="#" class="card-link">{{ tag.name }}</a>
+                            {% empty %}
+                            <p>No tags available</p>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <br>
-                <p>Понравилось: {{ question.likes_set.all.count}}</p>
-                <a href="{% url 'add_likes' question.id %}">Нравится</a>
-                <a href="{% url 'del_likes' question.id %}">Не нравится</a>
-            </div>
-            <div>
-                {% for comment in question.comments_set.all %}
-                <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-2">
-                        <div class="border mb-3" style="height: 100px">
-                            <img src="#" class="img-fluid rounded-start" alt="Avatar">
-                        </div>
-                        <input class="form-control" type="number" value="5" placeholder="Default input"
-                               aria-label="default input example">
-                    </div>
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            <h5><a href="#" class="card-link">{{ comment.name }}</a></h5>
-                            <p class="card-text">{{ comment.text_comment }}</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-                {% endfor %}
-            </div>
-            <div class="form-comment">
-                <h5>Add a comment</h5>
-                <form class="row g-3" action="{% url 'add_comments' question.id %}" method="post">
-                    {% csrf_token %}
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email"
-                                   placeholder="name@example.com">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Your name</label>
-                            <input name="name" class="form-control" type="text" placeholder="name"
-                                   aria-label="default input example">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" name="text_comment"
-                                      rows="3"></textarea>
-                        </div>
-
-
-                            <button type="submit" class="btn btn-primary mb-3">Confirm</button>
-
-                </form>
             </div>
         </div>
+    </div>
+
+    <div>
+        {% for comment in question.comments_set.all %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-2">
+                    <div class="border mb-3" style="height: 100px">
+                        <img src="#" class="img-fluid rounded-start" alt="Avatar">
+                    </div>
+                    <input class="form-control" type="number" value="5" placeholder="Default input"
+                           aria-label="default input example">
+                </div>
+                <div class="col-md-10">
+                    <div class="card-body">
+                        <h5><a href="#" class="card-link">{{ comment.name }}</a></h5>
+                        <p class="card-text">{{ comment.text_comment }}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="form-comment">
+        <h5>Add a comment</h5>
+        <form class="row g-3" action="{% url 'add_comments' question.id %}" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" name="email"
+                       placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Your name</label>
+                <input name="name" class="form-control" type="text" placeholder="name"
+                       aria-label="default input example">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="text_comment"
+                          rows="3"></textarea>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+
+        </form>
+    </div>
+</div>
 {% endblock %}

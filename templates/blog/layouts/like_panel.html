@@ -1,0 +1,20 @@
+<div class="border border-dark p-3 rounded">
+<div class="row">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+        <!-- Счётчик лайков по центру -->
+        <span class="mx-3" style="font-size: 1.5rem; font-weight: bold;">
+            {{ question.likes_set.all.count }}
+        </span>
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center">
+        <!-- Кнопка лайка с чёрной границей -->
+        <button class="btn btn-outline-dark mb-2" onclick="location.href='{% url 'add_likes' question.id %}'">
+            <i class="fa fa-thumbs-up"></i> +
+        </button>
+        <!-- Кнопка дизлайка с чёрной границей -->
+        <button class="btn btn-outline-dark" onclick="location.href='{% url 'del_likes' question.id %}'">
+            <i class="fa fa-thumbs-down"></i> -
+        </button>
+    </div>
+</div>
+</div>
