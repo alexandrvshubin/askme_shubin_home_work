@@ -56,7 +56,11 @@ class AddCommentLikeView(View):
 
 class QuestionView(View):
     def get(self,request):
+<<<<<<< HEAD
         page = paginate(models.Question.objects.new(), request, per_page=5)
+=======
+        page = paginate(models.Question.objects.all(), request, per_page=5)
+>>>>>>> 681711c51a69cefec518a77d269f789fe202d500
         #questions =models.Question.objects.all()
         return  render(request, 'blog/index.html',{'question_list':page.object_list,'page_obj':page})
 
@@ -94,7 +98,11 @@ class QuestionDetails(View):
 
 class HotQuestionView(View):
     def get(self,request):
+<<<<<<< HEAD
         page = paginate(models.Question.objects.popular(), request, per_page=5)
+=======
+        page = paginate(list(reversed(models.Question.objects.all())), request, per_page=5)
+>>>>>>> 681711c51a69cefec518a77d269f789fe202d500
         return  render(request, 'blog/hot.html',{'question_list':page.object_list,'page_obj':page})
 
 class SettingsView(View):
@@ -133,6 +141,17 @@ def paginate(objects_list, request, per_page=5):
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
     return page
+<<<<<<< HEAD
+=======
+
+def get_client_ip(request):
+    x_forvarded_for =request.META.get("HTTP_X_FORVARDED_FOR")
+    if x_forvarded_for:
+        ip =x_forvarded_for.spit(',')[0]
+    else:
+        ip =request.META.get("REMOTE_ADDR")
+    return ip
+>>>>>>> 681711c51a69cefec518a77d269f789fe202d500
 
 
 # Create your views here.
