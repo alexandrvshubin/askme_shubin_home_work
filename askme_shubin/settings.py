@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -132,7 +132,7 @@ STATICFILES_DIRS =[STATIC_DIR]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = os.path.join(BASE_DIR,"{% url 'login' %}")
+LOGIN = os.path.join(BASE_DIR,'login')
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL ='/media/'

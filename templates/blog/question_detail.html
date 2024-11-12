@@ -1,3 +1,4 @@
+
 {% extends 'blog/layouts/main_base.html' %}
 
 {% block content %}
@@ -7,7 +8,7 @@
         <div class="row g-0">
             <div class="col-md-2">
                 <div class="border mb-3" style="height: 100px">
-                    <img src="{{question.img.url}}" class="img-fluid rounded-start" alt="Avatar">
+                    <img src="{{question.user.profile.avatar.url}}" class="img-fluid rounded-start" alt="Avatar">
                 </div>
                 {% include 'blog/layouts/like_panel.html' %}
             </div>
@@ -33,19 +34,19 @@
     </div>
 
     <div>
-        {% for comment in question.comments_set.all %}
+        {% for comment in comments %}
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-2">
                     <div class="border mb-3" style="height: 100px">
-                        <img src="#" class="img-fluid rounded-start" alt="Avatar">
+                        <img src="{{comment.user.profile.avatar.url}}" class="img-fluid rounded-start" alt="Avatar">
                     </div>
-                    <input class="form-control" type="number" value="5" placeholder="Default input"
-                           aria-label="default input example">
+                    {% include 'blog/layouts/commentlikes.html' %}
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">
                         <h5><a href="#" class="card-link">{{ comment.name }}</a></h5>
+
                         <p class="card-text">{{ comment.text_comment }}</p>
 
                     </div>
@@ -54,6 +55,7 @@
         </div>
         {% endfor %}
     </div>
+    {% include 'blog/layouts/pagination.html' %}
     <div class="form-comment">
         <h5>Add a comment</h5>
         <form class="row g-3" action="{% url 'add_comments' question.id %}" method="post">
