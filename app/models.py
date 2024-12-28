@@ -31,6 +31,7 @@ class Comment(models.Model):
     text_comment =models.TextField("Text Comment", max_length=2000)
     question = models.ForeignKey(Question, verbose_name="Publication", on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    is_correct = models.BooleanField(default=False)
     def __str__(self):
             return f"{self.user.username},{self.question.id}"
     class Meta:

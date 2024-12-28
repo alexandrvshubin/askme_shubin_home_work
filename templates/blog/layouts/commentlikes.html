@@ -1,24 +1,21 @@
-<!-- like_panel.html -->
-
 <div class="border border-dark p-3 rounded">
     <div class="row">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
-
-            <span class="mx-3" style="font-size: 1.5rem; font-weight: bold;">
-            {{ comment.total_likes }}
-        </span>
+            <span id="comment-like-count-{{ comment.id }}" class="mx-3" style="font-size: 1.5rem; font-weight: bold;">
+                {{ comment.total_likes }}
+            </span>
         </div>
         <div class="col-md-6 d-flex flex-column align-items-center">
-
-            <button class="btn btn-outline-dark mb-2"
-                    onclick="location.href='{% url 'add_comment_like' comment_id=comment.id is_like=True %}'">
+            <button class="btn btn-outline-dark mb-2 comment-like-btn"
+                    data-id="{{ comment.id }}" data-like="true">
                 <i class="fa fa-thumbs-up"></i> +
             </button>
-
-            <button class="btn btn-outline-dark"
-                    onclick="location.href='{% url 'add_comment_like' comment_id=comment.id is_like=False %}'">
+            <button class="btn btn-outline-dark comment-like-btn"
+                    data-id="{{ comment.id }}" data-like="false">
                 <i class="fa fa-thumbs-down"></i> -
             </button>
         </div>
     </div>
 </div>
+
+
